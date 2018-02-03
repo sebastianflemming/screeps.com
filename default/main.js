@@ -1,5 +1,6 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
+var actionSpawn = require('action.spawn');
 
 module.exports.loop = function () {
 
@@ -10,7 +11,7 @@ module.exports.loop = function () {
   /*
   Cleanup code disabled due to high probability of bugs
   Do not remove, understand why this breaks the game first!!
-  
+
   for (creep in Memory.creeps) {
     if (Game.creeps[creep] === undefined ) {
       delete Memory.creeps[creep]
@@ -18,30 +19,7 @@ module.exports.loop = function () {
   }
 
   */
-
-  // Spawning loop
-for(namespawn in Game.spawns) {
-  var spawn = Game.spawns[namespawn];
-
-  if(spawn.spawning) {
-      var spawningCreep = Game.creeps[spawn.spawning.name];
-      spawn.room.visual.text(
-          '🛠️' + spawningCreep.memory.role,
-          spawn.pos.x + 1,
-          spawn.pos.y,
-          {align: 'left', opacity: 0.8});
-  }
-  // If not spawning, and spawn at energyCapacity, spawn
-  else if(!spawn.spawning && spawn.energy == spawn.energyCapacity) {
-    for (let name in Game.spawns) {
-      var spawn = Game.spawns[name];
-      if (spawn.energy == spawn.energyCapacity) {
-        console.log(spawn.spawnCreep([WORK, CARRY, CARRY, MOVE]));
-      }
-    }
-  }
-
-}
+actionSpawn.run();
 
   // Loop running the creeps
   for(var name in Game.creeps) {
