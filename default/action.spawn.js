@@ -10,6 +10,7 @@ var actionSpawn = {
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
     var repairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
+    var wallRepairers = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
 
     //if(!upgraders[0]){console.log('nope')}else{console.log('yep')};
     //if(!harvesters[0]){console.log('nope')}else{console.log('yep')};
@@ -106,7 +107,7 @@ var actionSpawn = {
                   console.log('Population is 2: SPAWNING REPAIRER');
                   console.log(spawn.spawnCreep( [WORK, WORK, CARRY, MOVE], newName, {memory: {role: 'repairer'}}));
                 }
-                else if (harvesters.length <= 2) {
+                else if (harvesters.length < 2) {
                   console.log('Population: ' + population);
                   console.log('Less or equal harvesters than 2: SPAWNING HARVESTER');
                   console.log(spawn.spawnCreep( [WORK, CARRY, CARRY, MOVE], newName, {memory: {role: 'harvester'}} ));
@@ -116,7 +117,7 @@ var actionSpawn = {
                   console.log('Less or equal number of upgraders than harvesters: SPAWNING UPGRADER');
                   console.log(spawn.spawnCreep( [WORK, CARRY, CARRY, MOVE], newName, {memory: {role: 'upgrader'}} ));
                 }
-                else if (builders.length < 5) {
+                else if (builders.length < 2) {
                   console.log('Population: ' + population);
                   console.log('Less than 2 builders: SPAWNING BUILDER');
                   console.log(spawn.spawnCreep( [WORK, CARRY, CARRY, MOVE], newName, {memory: {role: 'builder'}} ));
@@ -125,6 +126,11 @@ var actionSpawn = {
                   console.log('Population: ' + population);
                   console.log('Less than two repairer: SPAWNING REPAIRER');
                   console.log(spawn.spawnCreep( [WORK, WORK, CARRY, MOVE], newName, {memory: {role: 'repairer'}}));
+                }
+                else if (wallRepairers.length < 3) {
+                  console.log('Population: ' + population);
+                  console.log('Less than two repairer: SPAWNING REPAIRER');
+                  console.log(spawn.spawnCreep( [WORK, CARRY, CARRY, MOVE], newName, {memory: {role: 'wallRepairer'}}));
                 }
                 else {
                   console.log('Population: ' + population);

@@ -3,6 +3,7 @@ var roleUpgrader = require('role.upgrader');
 var actionSpawn = require('action.spawn');
 var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
+var roleWallRepairer = require('role.repairer');
 
 module.exports.loop = function () {
 
@@ -38,6 +39,8 @@ module.exports.loop = function () {
       }
       else if(creep.memory.role == 'repairer') {
           roleRepairer.run(creep);
+      } else if(creep.memory.role == 'wallRepairer'){
+        roleWallRepairer.run(creep);
       }
       // If the creep does not have a role, flip a coin to decide
       // A++ AI in action right there...
